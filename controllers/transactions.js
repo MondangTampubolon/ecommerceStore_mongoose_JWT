@@ -51,5 +51,24 @@ module.exports = {
     catch(error) {
       console.log(error);
     }
-  }
-  }
+  },
+  updateTransactions : async (req, res) => {
+    try {
+        const transactions = await Transactions.findOneAndUpdate({_id: req.params.id}, {...req.body})
+        if(transactions){
+            res.status(200).json({
+                message: `success edit transactions with ${req.params.id}`,
+            })
+        } else {
+            res.status(400).json({
+                message: `failed edit transactions with ${req.params.id}`,
+            })
+        }
+    }
+    catch(error){
+        res.status(500).json({
+            message: `Internal server error`,
+        })
+    }
+ },
+}

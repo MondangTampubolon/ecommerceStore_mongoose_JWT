@@ -4,8 +4,8 @@ module.exports = {
   getAllData : async (req, res) => { 
     try {
       const cart = await Cart.find({})
-      .populate('id_product')
-      .populate('id_users')
+      .populate({path:'id_product', select:'product_name'})
+      .populate({path: 'id_users', select: 'username'})
       
       if(cart){
         res.status(200).json({
@@ -53,5 +53,46 @@ addCart: async (req,res) => {
                 message: "Internal Server Error"
             })
         }
-    }
+    },
+    deleteCart: async (req, res) => {
+      try{
+        const deleteCart = await Cart.findOneAndDelete({
+          _id:req.params.id
+        })
+        if(deleteCart){
+          res.status(200).json({
+            message: "Cart deleted",
+          })
+        } else{
+          res.status(400).json({
+            message: "Cart not deleted"
+          })
+        }
+      }
+      catch(err){
+        console.log(err);
+        res.status(500).json({
+          message: "Invalid Server Error"
+        })
+      }
+    },
+    updateCart : async (req, res) => {
+      try {
+          const cart = await Cart.findOneAndUpdate({_id: req.params.id}, {...req.body})
+          if(cart){
+              res.status(200).json({
+                  message: `success edit cart with ${req.params.id}`,
+              })
+          } else {
+              res.status(400).json({
+                  message: `failed edit cart with ${req.params.id}`,
+              })
+          }
+      }
+      catch(error){
+          res.status(500).json({
+              message: `Internal server error`,
+          })
+      }
+   },
 }

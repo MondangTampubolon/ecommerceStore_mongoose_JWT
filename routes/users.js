@@ -5,12 +5,14 @@ const { verifyToken } = require('../helpers/token')
 const {
   getAllData,
   addOne,
-  login
+  login,
+  deleteUser
 } = require('../controllers/users')
 
 route.get('/users', getAllData)
 route.post('/users', addOne)
 route.post('/users/login', login)
+route.delete('/users/delete/:id', deleteUser)
 
 module.exports = route
 

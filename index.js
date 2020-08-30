@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('./config/db');
 const bodyParser = require('body-parser')
 
-const productsRouter = require('./routes/Product')
+const productsRouter = require('./routes/product')
 const productsImagesRouter = require('./routes/products_images')
 const usersRouter  = require('./routes/users')
 const cartsRouter = require('./routes/carts')

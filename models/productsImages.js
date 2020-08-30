@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 const productsImagesSchema = new Schema({
   id_product: {
     type: String,
-    required: true
+    required: true,
+    ref: 'products',
   },
   url_images: {
     type: String,

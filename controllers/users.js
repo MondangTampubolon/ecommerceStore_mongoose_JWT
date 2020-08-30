@@ -81,6 +81,28 @@ module.exports = {
     }
 
     // login gagal => response gagal
+  },
+  deleteUser: async (req, res) => {
+    try{
+      const deleteOneUser = await Users.findOneAndDelete({
+        _id:req.params.id
+      })
+      if(deleteOneUser){
+        res.status(200).json({
+          message: "User deleted",
+        })
+      } else{
+        res.status(400).json({
+          message: "User is not deleted"
+        })
+      }
+    }
+    catch(err){
+      console.log(err);
+      res.status(500).json({
+        message: "Invalid Server Error"
+      })
+    }
   }
 
 }
