@@ -62,7 +62,12 @@ module.exports = {
         callbackURL:process.env.CALLBACK_URL_GOOGLE
       },
       function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        User.findOrCreate({ 
+          providerId: profile.id,
+          provider: profile.provider,
+          fullname: profile.displayName,
+          email: profile._json.email
+        }, function (err, user) {
           return cb(err, user);
         });
       }
