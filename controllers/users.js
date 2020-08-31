@@ -103,6 +103,26 @@ module.exports = {
         message: "Invalid Server Error"
       })
     }
-  }
+  },
+  updateUser : async (req, res) => {
+    try {
+        const user = await Users.findOneAndUpdate({_id: req.params.id}, {...req.body})
+        if(user){
+            res.status(200).json({
+                message: `success edit User with ${req.params.id}`,
+            })
+        } else {
+            res.status(400).json({
+                message: `failed edit User with ${req.params.id}`,
+            })
+        }
+    }
+    catch(error){
+        res.status(500).json({
+            message: `Internal server error`,
+        })
+    }
+  
+}
 
 }
