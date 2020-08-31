@@ -53,10 +53,12 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google'),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.json({
+      message: 'success'
+    })
   });
 
 db.on('error', console.error.bind(console, 'connection error'));
